@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\title{Modern Problems in Nuclear Physics: neutron-star EoS and high-mass twins}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\section{Solution of the TOV equation}
+
+Write a program for solving the TOV equation
+
+\begin{gather}
+	\frac{dP(r)}{dr} = - \frac{ [E(r) + P(r)] [M(r) + 4 \pi r^3 P(r)]} {r (r - 2 M(r))}, \\
+	\frac{dM(r)}{dr} = 4 \pi r^2 E(r)
+\end{gather}
+
+for a given set of central densities or pressures. Here the units are $G = c = 1$; you may find the conversion factors and detailed discussion on how to solve the equations in \cite{Glend}. Use the EoS in the file "MKVOR.dat" to obtain the solution. The following plots are expected as a result:
+\begin{itemize}
+	\item Neutron star gravitational mass $M$ in units of $M_\odot = 1.4766$ km as a function of the central density $n_c$ in units of $n_0 = 0.16$ fm$^{-3}$. The NS with a maximum mass should be clearly seen from the plot.
+	\item Neutron star mass $M(n_c)$ vs. NS radius $R(n_c)$ for the same set of the central densities.
+\end{itemize}
+
+
+\section{Third branch of compact stars}
+
+The piecewise-polytropic EoS is defined as:
+
+\begin{gather}
+P(n) = 
+\left\{
+\begin{tabular}{cc}
+$\kappa_1 n^{\Gamma_1}$, & $n < n_{12}$\\
+$P_c$,& $n_{12} < n < n_{23}$ \\
+$\kappa_3 n^{\Gamma_3}$, & $n_{23} < n$.
+\end{tabular}
+\right.
+\end{gather}
+
+\begin{gather}
+E(n) = 
+\left\{
+\begin{tabular}{cc}
+$\dfrac{\kappa_1 n^{\Gamma_1}}{(\Gamma_1 - 1)} + m_1 n$, & $n < n_{12}$\\
+$P_c$,& $n_{12} < n < n_{23}$ \\
+$\dfrac{\kappa_3 n^{\Gamma_3}}{(\Gamma_3 - 1)} + m_3 n$, & $n_{23} < n$.
+\end{tabular}
+\right.
+\end{gather}
+
+We will employ this assumption about the EoS shape for studying the possible consequences of the first-order phase transition from hadronic to quark matter on the mass-radius diagram. The task in composed of the following steps:
+
+\begin{enumerate}
+	\item Implement and test these formulas in the code. 
+	
+	\item Perform a fit of the hadronic EoS given for the Task 1 using this formula with $n_{12} \to \infty$
+	
+	{\bf Output:}
+	
+	\begin{itemize}
+		\item Obtain the parameters $\kappa_1, \, \Gamma_1$.
+		\item Plot the fitting curve compared with the original.
+	\end{itemize}
+
+	
+	\item Partially reproduce the results of \cite{Alvarez-Castillo:2017qki} for the values $\Gamma_1 = 4.92$ and $\kappa_1 = 17906.60 \, {\rm MeV} \cdot {\rm fm}^{3 (\Gamma_1 - 1) }$, and $n_{12} = 0.32 \, {\rm fm}^{-3}, \, n_{23} = 0.53 \, {\rm fm}^{-3}$. The mass parameter $m_1 = 938 \, {\rm MeV}$ is the nucleon mass. 
+	
+	{\bf Output}
+	\begin{itemize}
+		\item $M(n_c)$, MR diagram
+		\item Pressure and density profile inside a star with the maximum mass as a function of the radial coordinate.
+	\end{itemize}
+	
+	\item Write a code for finding $n_{23}$ for given $\kappa_1, \Gamma_1, \kappa_3, \Gamma_3, n_{12}$. For a fixed $n_{12}$ and a fixed "hadronic" EoS vary $\kappa_3, \, \Gamma_3$ to change $n_{23}$.  in order to check the validity of the Seidov's criterion \cite{seidov} for the existence of the third branch:
+	
+	\begin{eqnarray}
+		\frac{\Delta E}{E_{12}} = \frac{1}{2} + \frac{3}{2} \frac{P_c}{E_{12}},
+	\end{eqnarray}
+	
+	where $E_{12} = E(n_{12}), \, E_{23} = E(n_{23})$, and  $\Delta E = E_{23} - E_{12}$.
+	
+	
+	{\bf Output:}
+	\begin{itemize}
+		\item MR plot for several values of $n_{23}$ like Fig. 2 in \cite{Lindblom:1998dp}.
+		\item Comparison of $\Delta E / E_{12}$ with the formula for the critical value of $n_{12}$.
+	\end{itemize}
+\end{enumerate}
+
+\begin{thebibliography}{widestlabel}
+	\bibitem{Glend}
+	Glendenning, N.K. 2000, Compact Stars, Nuclear Physics, Particle Physics, and General Relativity, 2nd ed.
+	
+	%\cite{Alvarez-Castillo:2017qki}
+	\bibitem{Alvarez-Castillo:2017qki}
+	D.~E.~Alvarez-Castillo and D.~B.~Blaschke,
+	%``High-mass twin stars with a multi-polytrope EoS,''
+	arXiv:1703.02681 [nucl-th].
+	%%CITATION = ARXIV:1703.02681;%%
+	
+	\bibitem{seidov}
+	Z. F. Seidov, 
+	Soviet Astronomy, Vol. 15, p.347
+	
+	\bibitem{Lindblom:1998dp} 
+	L.~Lindblom,
+	%``Phase transitions and the mass radius curves of relativistic stars,''
+	Phys.\ Rev.\ D {\bf 58}, 024008 (1998)
+	doi:10.1103/PhysRevD.58.024008
+	[gr-qc/9802072].
+	%%CITATION = doi:10.1103/PhysRevD.58.024008;%%
+	%28 citations counted in INSPIRE as of 18 Mar 2018
+	
+	
+\end{thebibliography}
+\end{document}
